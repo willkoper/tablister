@@ -1,0 +1,16 @@
+{
+  "name": "Tab Lister",
+  "version": "0.1",
+  "description": "Displays a list of tabs for easier navigation",
+  "permissions": [
+    "bookmarks",
+    "tabs"
+  ],
+  "browser_action": {
+      "default_title": "My tabs.",
+      "default_icon": "icon.png",
+      "default_popup": "popup.html"
+  },
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+}
