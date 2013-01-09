@@ -1,8 +1,19 @@
 <html>
 <head>
-<link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css" rel="stylesheet">
 <style>
+.close{
+	display: inline;
+	background: url('Actions-tab-close-other-icon.png') center right no-repeat ;
+	content: ' ';
+	padding: 0 16px;
+}
 div, td, th { color: black; }
+a {
+	text-decoration:none;
+}
+ul{
+	list-style:none;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
@@ -10,7 +21,6 @@ div, td, th { color: black; }
 
 </head>
 <body style="width: 400px">
-<div>Search Bookmarks: <input id="search"></div>
 <div id="bookmarks"></div>
 <div id="editdialog"></div>
 <div id="deletedialog"></div>

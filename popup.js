@@ -2,20 +2,22 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// Search the bookmarks when entering the search keyword.
-$(function() {
-  $('#search').change(function() {
-     $('#bookmarks').empty();
-     dumpBookmarks($('#search').val());
-  });
-});
-
 // Switch to current tab
-
-function changeToTab(tabId){
+function TabController($target){
+var tabs = chrome.tabs,
+	changeToTab,
+	killTab,
+	getTabList;
+	
+changeToTab = function (tabId) {
 	var tabSwitch = chrome.tabs.update(tabId, {active:true});
-}
-function getTabList($target, query){
+	};
+	
+killTab = function (tabId) {
+	var tabKill = chrome.tabs.remove(tabId);
+	getTabList();
+};
+getTabList = function (){
 	chrome.tabs.query({}, 
 		function(tabList){
 			var tabCounter,
@@ -23,22 +25,31 @@ function getTabList($target, query){
 				newUL = $('<ul>',{id:'tab_list'});
 			for (tabCounter = 0; tabCounter < tabList.length; tabCounter += 1){
 				currentTab = tabList[tabCounter];
-				$('<li><a href = "#" data-tab_id = "'+currentTab.id+'">'+currentTab.title+'</a>').appendTo(newUL);
+				$('<li><a href = "#" data-tab_id = "'+currentTab.id+'">'+currentTab.title+'</a><i class = "close"></i></li>').appendTo(newUL);
 
 			}
 			$target.html('');
 			$target.append(newUL);
 			$target.on('click', 'a', function(evt){
 				changeToTab($(this).data('tab_id'));
-			})
+			});
+			$target.on('click', '.close', function(evt){
+				killTab($(this).prev('a').data('tab_id'));
+			});
 		}
 	);
 
 	
 }
+return {
+	init : getTabList()
+}
+}
+
 
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  getTabList($('#bookmarks'));
+ 	tabber = new TabController($('#bookmarks'));
+ 	tabber.init();
 });
